@@ -2,7 +2,25 @@
 
 Provides shared pointers and ownership semantics.
 
+[![Build Status](https://travis-ci.org/kurocha/memory.svg?branch=master)](https://travis-ci.org/kurocha/memory)
+
+## Setup
+
+Firstly the build tool `teapot` needs to be installed (which requires [Ruby][2]):
+ 
+	$ gem install teapot
+
+To fetch all dependencies, run:
+
+	$ teapot fetch
+
+[2]: http://www.ruby-lang.org/en/downloads/
+
 ## Usage
+
+To run unit tests:
+
+	$ teapot Test/Memory
 
 ### `Memory::Object`
 
@@ -23,6 +41,14 @@ An instance of `Memory::Object` supports the concept of finalizers. This allows 
 ```c++
 auto i = Memory::shared<int>(10);
 ```
+
+## Contributing
+
+1. Fork it.
+2. Create your feature branch (`git checkout -b my-new-feature`).
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin my-new-feature`).
+5. Create new Pull Request.
 
 ## License
 
