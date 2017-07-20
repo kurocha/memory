@@ -20,9 +20,9 @@ namespace Memory
 
 	public:
 		Pointer() {}
-
+		
 		Pointer(ValueT * value) : _value(value) {}
-
+		
 		ValueT * operator->() const
 		{
 			assert(_value != nullptr);
@@ -37,47 +37,57 @@ namespace Memory
 			return *_value;
 		}
 
-		bool operator==(const Pointer & other) const
+		explicit operator bool() const noexcept
+		{
+			return _value != nullptr;
+		}
+
+		bool operator==(const Pointer & other) const noexcept
 		{
 			return _value == other._value;
 		}
 
-		bool operator!=(const Pointer & other) const
+		bool operator!=(const Pointer & other) const noexcept
 		{
 			return _value != other._value;
 		}
+		
+		bool operator==(std::nullptr_t) const noexcept
+		{
+			return _value == nullptr;
+		}
 
-		bool operator<(const Pointer & other) const
+		bool operator!=(std::nullptr_t) const noexcept
+		{
+			return _value != nullptr;
+		}
+		
+		bool operator<(const Pointer & other) const noexcept
 		{
 			return _value < other._value;
 		}
 
-		bool operator>(const Pointer & other) const
+		bool operator>(const Pointer & other) const noexcept
 		{
 			return _value > other._value;
 		}
 
-		bool operator<=(const Pointer & other) const
+		bool operator<=(const Pointer & other) const noexcept
 		{
 			return _value <= other._value;
 		}
 
-		bool operator>=(const Pointer & other) const
+		bool operator>=(const Pointer & other) const noexcept
 		{
 			return _value >= other._value;
 		}
 
-		ValueT * get() const
+		ValueT * get() const noexcept
 		{
 			return _value;
 		}
 
-		explicit operator bool() const
-		{
-			return _value ? true : false;
-		}
-
-		operator ValueT *() const
+		operator ValueT *() const noexcept
 		{
 			return _value;
 		}
