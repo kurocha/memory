@@ -8,7 +8,7 @@
 
 #include <UnitTest/UnitTest.hpp>
 
-#include <Memory/Owner.hpp>
+#include <Memory/Owned.hpp>
 #include <Memory/ObjectCache.hpp>
 
 namespace Memory
@@ -21,7 +21,7 @@ namespace Memory
 				ObjectCache<int> object_cache;
 				
 				{
-					auto object = owner<Object>();
+					auto object = owned<Object>();
 				
 					object_cache.insert({object, 10});
 					

@@ -1,5 +1,5 @@
 //
-//  Owner.hpp
+//  Owned.hpp
 //  File file is part of the "Memory" project and released under the MIT License.
 //
 //  Created by Samuel Williams on 27/6/2017.
@@ -13,7 +13,7 @@
 namespace Memory
 {
 	template <typename ObjectT>
-	class Owner : public Pointer<ObjectT>
+	class Owned : public Pointer<ObjectT>
 	{
 	private:
 		void retain() {
@@ -30,7 +30,7 @@ namespace Memory
 			}
 		}
 
-		Owner& set(ObjectT * object) {
+		Owned& set(ObjectT * object) {
 			clear();
 			
 			if (object) {
@@ -41,64 +41,64 @@ namespace Memory
 			return *this;
 		}
 		
-		Owner() {}
+		Owned() {}
 		
-		Owner(ObjectT * object) : Pointer<ObjectT>(object)
+		Owned(ObjectT * object) : Pointer<ObjectT>(object)
 		{
 			retain();
 		}
 		
-		Owner(const Owner & other) : Pointer<ObjectT>(other.get())
+		Owned(const Owned & other) : Pointer<ObjectT>(other.get())
 		{
 			retain();
 		}
 		
 		template <typename OtherObjectT>
-		Owner(const Owner<OtherObjectT> & other) : Pointer<ObjectT>(other.get())
+		Owned(const Owned<OtherObjectT> & other) : Pointer<ObjectT>(other.get())
 		{
 			retain();
 		}
 		
-		~Owner()
+		~Owned()
 		{
 			clear();
 		}
 		
-		Owner& operator=(const Owner & other)
+		Owned& operator=(const Owned & other)
 		{
 			return set(other.get());
 		}
 		
 		template <typename OtherObjectT>
-		Owner& operator=(const Owner<OtherObjectT> & other)
+		Owned& operator=(const Owned<OtherObjectT> & other)
 		{
 			return set(other.get());
 		}
 
-		Owner& operator=(ObjectT * object)
+		Owned& operator=(ObjectT * object)
 		{
 			return set(object);
 		}
 		
 		template <typename OtherObjectT>
-		Owner<OtherObjectT> as() const
+		Owned<OtherObjectT> as() const
 		{
 			return dynamic_cast<OtherObjectT*>(this->_value);
 		}
 	};
 
 	template <typename ValueT>
-	Owner<ValueT> own(ValueT* value)
+	Owned<ValueT> own(ValueT* value)
 	{
-		return Owner<ValueT>(value);
+		return Owned<ValueT>(value);
 	}
 
 	template <typename ValueT, typename ...Arguments>
-	inline static Owner<ValueT> owner(Arguments&& ...arguments)
+	inline static Owned<ValueT> owned(Arguments&& ...arguments)
 	{
-		return Owner<ValueT>(new ValueT(arguments...));
+		return Owned<ValueT>(new ValueT(arguments...));
 	}
 
 	template <typename ObjectT>
-	using Own = Owner<ObjectT>;
+	using Own = Owned<ObjectT>;
 }

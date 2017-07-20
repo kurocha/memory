@@ -8,7 +8,7 @@
 
 #include <UnitTest/UnitTest.hpp>
 
-#include <Memory/Owner.hpp>
+#include <Memory/Owned.hpp>
 #include <Memory/Object.hpp>
 #include <Memory/Association.hpp>
 
@@ -19,7 +19,7 @@ namespace Memory
 		
 		{"it clears weak reference after object is deallocated",
 			[](UnitTest::Examiner & examiner) {
-				auto object = owner<Object>();
+				auto object = owned<Object>();
 				auto association = weak(object);
 				
 				examiner.expect(association.get()) == object.get();

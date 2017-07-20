@@ -9,7 +9,7 @@
 #include <UnitTest/UnitTest.hpp>
 
 #include <Memory/ClassType.hpp>
-#include <Memory/Owner.hpp>
+#include <Memory/Owned.hpp>
 #include <Memory/Object.hpp>
 
 namespace Memory
@@ -26,7 +26,7 @@ namespace Memory
 		{"it can detect instances of object",
 			[](UnitTest::Examiner & examiner) {
 				SpecificClassType<Object> class_type;
-				auto object = owner<Object>();
+				auto object = owned<Object>();
 				
 				examiner.expect(class_type.is_class_of(object)) == true;
 			}
@@ -35,7 +35,7 @@ namespace Memory
 		// {"it can detect instances derived from object",
 		// 	[](UnitTest::Examiner & examiner) {
 		// 		SpecificClassType<MyObject> class_type;
-		// 		Owner<Object> object = owner<MyObject>();
+		// 		Owned<Object> object = Owned<MyObject>();
 		// 		
 		// 		examiner.expect(class_type.is_class_of(object)) == true;
 		// 	}

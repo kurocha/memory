@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-#include "Owner.hpp"
+#include "Owned.hpp"
 #include "SharedObject.hpp"
 
 #include <cassert>
@@ -33,7 +33,7 @@ namespace Memory
 			virtual ~Allocation() {}
 		};
 		
-		Owner<SharedObject> _allocation;
+		Owned<SharedObject> _allocation;
 		ValueT * _value = nullptr;
 		
 		Shared(Allocation * allocation)

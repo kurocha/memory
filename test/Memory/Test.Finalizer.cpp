@@ -10,7 +10,7 @@
 
 #include <Memory/Finalizer.hpp>
 #include <Memory/Object.hpp>
-#include <Memory/Owner.hpp>
+#include <Memory/Owned.hpp>
 
 namespace Memory
 {
@@ -32,7 +32,7 @@ namespace Memory
 				CountingFinalizer finalizer;
 				
 				{
-					auto object = owner<Object>();
+					auto object = owned<Object>();
 					object->finalizers().insert(&finalizer);
 				}
 				
@@ -45,7 +45,7 @@ namespace Memory
 				CountingFinalizer finalizer;
 				
 				{
-					auto object = owner<Object>();
+					auto object = owned<Object>();
 					object->finalizers().insert(&finalizer);
 					object->finalizers().erase(&finalizer);
 				}
