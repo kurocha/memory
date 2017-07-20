@@ -86,19 +86,18 @@ namespace Memory
 			return dynamic_cast<OtherObjectT*>(this->_value);
 		}
 	};
-
+	
+	/// Take ownership of a pointer.
 	template <typename ValueT>
 	Owned<ValueT> own(ValueT* value)
 	{
 		return Owned<ValueT>(value);
 	}
-
+	
+	/// Allocate an owned pointer.
 	template <typename ValueT, typename ...Arguments>
 	inline static Owned<ValueT> owned(Arguments&& ...arguments)
 	{
 		return Owned<ValueT>(new ValueT(arguments...));
 	}
-
-	template <typename ObjectT>
-	using Own = Owned<ObjectT>;
 }
