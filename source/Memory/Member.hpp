@@ -17,7 +17,7 @@ namespace Memory
 		template <class T, typename U>
 		inline constexpr std::ptrdiff_t offset(U T::* member)
 		{
-			return reinterpret_cast<std::ptrdiff_t>(&(reinterpret_cast<T const volatile*>(nullptr)->*member));
+			return reinterpret_cast<std::ptrdiff_t>(&(reinterpret_cast<T const volatile*>(0)->*member));
 		}
 	}
 }
