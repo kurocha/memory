@@ -51,6 +51,8 @@ namespace Memory
 	public:
 		Shared() {}
 		
+		Shared(std::nullptr_t) {}
+		
 		// The default copy constructor and operator= are sufficient.
 		
 		template <typename OtherValueT>
