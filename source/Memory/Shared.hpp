@@ -53,14 +53,11 @@ namespace Memory
 		
 		Shared(std::nullptr_t) {}
 		
-		// The default copy constructor and operator= are sufficient.
+		explicit Shared(ValueT * value) : _allocation(new SharedObject), _value(value) {}
 		
+		// The default copy constructor and operator= are sufficient.
 		template <typename OtherValueT>
-		Shared(Shared<OtherValueT> other)
-		{
-			_allocation = other._allocation;
-			_value = other._value;
-		}
+		Shared(Shared<OtherValueT> other) : _allocation(other._allocation), _value(other._value) {}
 		
 		~Shared() {}
 		
