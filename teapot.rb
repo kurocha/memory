@@ -3,7 +3,7 @@
 #  This file is part of the "Teapot" project, and is released under the MIT license.
 #
 
-teapot_version "1.3"
+teapot_version "3.0"
 
 # Project Metadata
 
@@ -21,43 +21,29 @@ end
 # Build Targets
 
 define_target 'memory-library' do |target|
-	target.build do
-		source_root = target.package.path + 'source'
-		
-		copy headers: source_root.glob('Memory/**/*.hpp')
-		
-		build static_library: "Memory", source_files: source_root.glob('Memory/**/*.cpp')
-	end
-	
-	target.depends 'Build/Files'
-	target.depends 'Build/Clang'
-	
-	target.depends :platform
-	target.depends "Language/C++11", private: true
-	
-	target.depends "Build/Files"
-	target.depends "Build/Clang"
+	target.depends "Language/C++11"
 	
 	target.provides "Library/Memory" do
-		append linkflags [
-			->{install_prefix + 'lib/libMemory.a'},
-		]
+		source_root = target.package.path + 'source'
+		
+		library_path = build static_library: "Memory", source_files: source_root.glob('Memory/**/*.cpp')
+		
+		append linkflags library_path
+		append header_search_paths source_root
 	end
 end
 
 define_target "memory-tests" do |target|
-	target.build do |*arguments|
-		test_root = target.package.path + 'test'
-		
-		run tests: "Memory", source_files: test_root.glob('Memory/**/*.cpp'), arguments: arguments
-	end
-	
 	target.depends "Language/C++11", private: true
 	
 	target.depends "Library/UnitTest"
 	target.depends "Library/Memory"
 	
-	target.provides "Test/Memory"
+	target.provides "Test/Memory" do |*arguments|
+		test_root = target.package.path + 'test'
+		
+		run tests: "Memory", source_files: test_root.glob('Memory/**/*.cpp'), arguments: arguments
+	end
 end
 
 # Configurations
