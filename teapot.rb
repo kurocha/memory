@@ -21,7 +21,7 @@ end
 # Build Targets
 
 define_target 'memory-library' do |target|
-	target.depends "Language/C++11"
+	target.depends "Language/C++14"
 	
 	target.provides "Library/Memory" do
 		source_root = target.package.path + 'source'
@@ -34,7 +34,7 @@ define_target 'memory-library' do |target|
 end
 
 define_target "memory-tests" do |target|
-	target.depends "Language/C++11", private: true
+	target.depends "Language/C++14", private: true
 	
 	target.depends "Library/UnitTest"
 	target.depends "Library/Memory"
