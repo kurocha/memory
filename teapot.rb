@@ -34,31 +34,33 @@ define_target 'memory-library' do |target|
 end
 
 define_target "memory-tests" do |target|
+	target.depends 'Library/UnitTest'
 	target.depends "Language/C++14"
 	
-	target.depends "Library/UnitTest"
 	target.depends "Library/Memory"
 	
 	target.provides "Test/Memory" do |*arguments|
 		test_root = target.package.path + 'test'
 		
-		run tests: "Memory", source_files: test_root.glob('Memory/**/*.cpp'), arguments: arguments
+		run source_files: test_root.glob('Memory/**/*.cpp'), arguments: arguments
 	end
 end
 
 # Configurations
 
-define_configuration "memory" do |configuration|
-	configuration[:source] = "http://github.com/kurocha/"
+define_configuration "development" do |configuration|
+	configuration[:source] = "https://github.com/kurocha/"
+	
+	configuration.require 'generate-project'
+	configuration.require 'generate-travis'
 	
 	# Provides all the build related infrastructure:
-	configuration.require 'platforms'
+	configuration.require "platforms"
+	configuration.require "build-files"
 	
 	# Provides unit testing infrastructure and generators:
-	configuration.require 'unit-test'
+	configuration.require "unit-test"
 	
 	# Provides some useful C++ generators:
-	configuration.require "generate-project"
-	configuration.require "generate-travis"
 	configuration.require "generate-cpp-class"
 end
