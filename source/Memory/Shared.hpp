@@ -30,7 +30,7 @@ namespace Memory
 			template <typename ...Arguments>
 			Allocation(Arguments&& ...arguments) : value(arguments...) {}
 			
-			virtual ~Allocation() {}
+			virtual ~Allocation() noexcept {}
 		};
 		
 		Owned<SharedObject> _allocation;
