@@ -34,7 +34,7 @@ define_target 'memory-library' do |target|
 end
 
 define_target "memory-tests" do |target|
-	target.depends "Language/C++14", private: true
+	target.depends "Language/C++14"
 	
 	target.depends "Library/UnitTest"
 	target.depends "Library/Memory"
