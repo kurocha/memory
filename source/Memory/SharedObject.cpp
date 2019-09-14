@@ -14,22 +14,27 @@ namespace Memory
 	{
 	}
 
-	SharedObject::SharedObject(const SharedObject & other) : _count(0) {
+	SharedObject::SharedObject(const SharedObject & other) : _count(0)
+	{
 	}
 
-	SharedObject & SharedObject::operator=(const SharedObject & other) {
+	SharedObject & SharedObject::operator=(const SharedObject & other)
+	{
 		// Don't copy the reference count.
 		return *this;
 	}
 
-	SharedObject::~SharedObject() {
+	SharedObject::~SharedObject()
+	{
 	}
 
-	void SharedObject::retain() const {
+	void SharedObject::retain() const
+	{
 		_count.fetch_add(1);
 	}
 
-	bool SharedObject::release() const {
+	bool SharedObject::release() const
+	{
 		// Returns the value before subtracting 1:
 		NumberT count = _count.fetch_sub(1);
 		
@@ -42,7 +47,8 @@ namespace Memory
 		return false;
 	}
 	
-	SharedObject::NumberT SharedObject::reference_count() const {
+	SharedObject::NumberT SharedObject::reference_count() const
+	{
 		return _count.load();
 	}
 }

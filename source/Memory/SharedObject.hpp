@@ -29,7 +29,7 @@ namespace Memory
 		/// Copy operator. Doesn't modify reference count.
 		SharedObject & operator=(const SharedObject & other);
 		
-		virtual ~SharedObject() noexcept;
+		virtual ~SharedObject();
 		
 		NumberT reference_count() const;
 		
