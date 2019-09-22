@@ -15,7 +15,7 @@ namespace Memory
 		/// This function returns the offset of a member of a class/struct.
 		/// @example Member::offset(&VertexData::color)
 		template <class T, typename U>
-		inline constexpr std::ptrdiff_t offset(U T::* member)
+		constexpr std::ptrdiff_t offset(U T::* member) noexcept
 		{
 			return reinterpret_cast<std::ptrdiff_t>(&(reinterpret_cast<T const volatile*>(0)->*member));
 		}
